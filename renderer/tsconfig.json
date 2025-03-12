@@ -2,8 +2,8 @@
     "compilerOptions": {
       "outDir": "./dist/",
       "noImplicitAny": true,
-      "module": "es6",
-      "target": "es2022",
+      "module": "ESNext",
+      "target": "ESNext",
       "allowJs": true,
       "esModuleInterop":true, 
       "moduleResolution": "node",
@@ -12,5 +12,6 @@
       "typeRoots":["./*"]
     },
     "exclude": [
-    ]
+    ],
+    "include": ["../preload/preload.ts", "./**/*"]
 }

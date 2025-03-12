@@ -3,7 +3,9 @@ import path from "path";
 
 app.on("ready",()=>{
 
-    let preload = path.join(__dirname, 'preload.js');
+    let preload = path.join(__dirname, '/preload/preload.js');
+
+    console.log(preload)
     let Window = new BrowserWindow({
         width: 1600,
         height: 900,
@@ -15,14 +17,20 @@ app.on("ready",()=>{
         closable : true,
         title: "Application",
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: preload
         }
 
     });
-    
+
     Window.loadURL("http://localhost:7473/index.html");
     Window.webContents.openDevTools();
     Window.on("ready-to-show", ()=>{
-        console.log("Loading!");
+
     })
+
+    Window.webContents.ipc.on("start",()=>{
+        Window.webContents.send("DBData", "a lot of data");
+    })
+
 });
+
