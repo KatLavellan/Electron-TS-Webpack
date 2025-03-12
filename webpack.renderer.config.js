@@ -6,8 +6,11 @@ module.exports = [{
   entry: './Renderer/index.ts',
   devtool: 'inline-source-map',
   devServer:{
+    hot: "only",
+    watchFiles:["./**/*.ts", "./**/*.html", "../Server/**/*.ts"],
+    historyApiFallback: true,
     static: {
-      directory: path.join(__dirname, 'Assets'),
+      directory: path.join(__dirname, './assets/')
     },
     port:7473
   },
@@ -27,10 +30,10 @@ module.exports = [{
                 loader: 'html-loader',
                 options: {
                     minimize: {
-            caseSensitive: true,
-            collapseWhitespace : false,
-            removeComments: true
-          }
+                    caseSensitive: true,
+                    collapseWhitespace : false,
+                    removeComments: true
+                }
                 }
             },
       {
@@ -61,9 +64,12 @@ module.exports = [{
     filename: 'bundle.js'
     //path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new HtmlWebPackPlugin({   
-    filename: 'index.html',
-  template: 'Renderer/index.html'}),
+  plugins: [
+    new HtmlWebPackPlugin({   
+        filename: 'index.html',
+        inject: true,
+        template: 'Renderer/index.html'
+    }),
   new MiniCssExtractPlugin({
     filename: '[name].css',
     chunkFilename: '[id].css'
